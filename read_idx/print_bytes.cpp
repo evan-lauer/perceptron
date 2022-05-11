@@ -1,7 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <Eigen/Dense>
 
+using namespace Eigen;
 using namespace std;
 
 vector<char>* get_byte_vector(FILE* file, vector<char>* char_vector)
@@ -18,7 +20,10 @@ vector<char>* get_byte_vector(FILE* file, vector<char>* char_vector)
 }
 
 
-
+char** get_byte_array(string absolute_file_path)
+{
+    return nullptr;
+}
 
 
 int main()
@@ -29,8 +34,9 @@ int main()
 
         28^2 = 784
     */
-    
-
+    MatrixXd m = MatrixXd::Random(3,3);
+    cout << m;
+   
 
     string filename_ten_thousand_images = "C:\\Users\\lauer\\projects\\perceptron\\read_idx\\test_files\\t10k-images.idx3-ubyte";
     string filename_ten_thousand_labels = "C:\\Users\\lauer\\projects\\perceptron\\read_idx\\test_files\\t10k-labels.idx1-ubyte";
@@ -59,24 +65,24 @@ int main()
     int num_image_offset = 1;
     int offset = 16 + num_image_offset * 784; // num bytes
 
-    for (int i = 0; i < 28; ++i)
-    {
-        for (int j = 0; j < 28; ++j)
-        {
-            unsigned char ch = image_bytes->at(i * 28 + j + offset);
-            if (ch < 10)
-            {
-                cout << "00";
-            } else
-            if (ch < 100)
-            {
-                cout << "0"; 
-            }
-            cout << +ch;
-            cout << " ";
-        }
-        cout << "\n";
-    } // this works!
+    // for (int i = 0; i < 28; ++i)
+    // {
+    //     for (int j = 0; j < 28; ++j)
+    //     {
+    //         unsigned char ch = image_bytes->at(i * 28 + j + offset);
+    //         if (ch < 10)
+    //         {
+    //             cout << "00";
+    //         } else
+    //         if (ch < 100)
+    //         {
+    //             cout << "0"; 
+    //         }
+    //         cout << +ch;
+    //         cout << " ";
+    //     }
+    //     cout << "\n";
+    // } // this works!
 
     return 0;
 }

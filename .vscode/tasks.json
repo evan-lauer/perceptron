@@ -10,7 +10,9 @@
                 "/nologo",
                 "/Fe:",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "${file}"
+                "${file}",
+                "/I",
+                "C:\\eigen-3.4.0"
             ],
             "options": {
                 "cwd": "${fileDirname}"
