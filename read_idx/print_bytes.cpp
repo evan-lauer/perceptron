@@ -35,7 +35,7 @@ int main()
     string filename_ten_thousand_images = "C:\\Users\\lauer\\projects\\perceptron\\read_idx\\test_files\\t10k-images.idx3-ubyte";
     string filename_ten_thousand_labels = "C:\\Users\\lauer\\projects\\perceptron\\read_idx\\test_files\\t10k-labels.idx1-ubyte";
 
-    vector<char>* image_bytes = new vector<char>(); // make sure to free these
+    vector<char>* image_bytes = new vector<char>(); // 
     vector<char>* label_bytes = new vector<char>(); // each char is 1 byte, 8 bits in a byte. 1 byte is [0,255]
 
     FILE* image_file = fopen(filename_ten_thousand_images.c_str(), "r");
