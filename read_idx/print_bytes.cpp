@@ -73,6 +73,27 @@ uint32_t get_num_files(FILE* f)
 }
 
 /**
+ * @brief This method allows me to print a digit to cout instead of using a rendering software.
+ * It's hard to visualize the images from bytecode.
+ * 
+ * @param img 
+ */
+void print_img_vector(ImageVector* img)
+{
+    for (int i = 0; i < 28; ++i)
+    {
+        for (int j = 0; j < 28; ++j)
+        {
+            Scalar ch = (*img)(i*28 + j);
+            if (ch < 10) { cout << "00"; }
+            else if (ch < 100) { cout << "0"; }
+            cout << +ch; // + is added to visualize the actual numerical char
+        }
+        cout << "\n";
+    }
+}
+
+/**
  * @brief This method loads an array of bytes (default is unsigned char) from the given absolute file path.
  * Currently expects encoding according to MNIST database, but this could change if necessary. Returns
  * a vector containing row vectors containing unsigned chars.
@@ -82,11 +103,21 @@ uint32_t get_num_files(FILE* f)
  * @param absolute_file_path 
  * @return vector<ImageVector*>* 
  */
-vector<ImageVector*>* load_byte_array(string absolute_file_path)
+vector<ImageVector*>* load_byte_array(string absolute_file_path, bool is_image_file)
 {
     FILE* f = load_file(absolute_file_path);
+    
 
     uint32_t num_files = get_num_files(f);
+    if (is_image_file)
+    {
+        int success = fseek(f, 8, SEEK_CUR);
+        if (success != 0)
+        {
+            cout << "Error: fseek failed.\n";
+            exit(-1);
+        }
+    }
 
     vector<ImageVector*>* byte_array = new vector<ImageVector*>();
 
@@ -96,7 +127,7 @@ vector<ImageVector*>* load_byte_array(string absolute_file_path)
         for (int j = 0; j < 784; ++j)
         {
             Scalar ch = getc(f);
-            // (*row_vector)(1,j) = ch; THIS IS CAUSING AN ERROR
+            (*row_vector)(j) = ch;
         }
         byte_array->push_back(row_vector);
     }
@@ -105,10 +136,13 @@ vector<ImageVector*>* load_byte_array(string absolute_file_path)
     return byte_array;
 }
 
-
+/*
 int main()
 {
     string filename = "C:\\Users\\lauer\\projects\\perceptron\\read_idx\\test_files\\t10k-images.idx3-ubyte";
-    vector<ImageVector*>* vec = load_byte_array(filename);
+    vector<ImageVector*>* vec = load_byte_array(filename, 1);
+    ImageVector* img = vec->at(0);
+    print_img_vector(img);
     return 1;
 }
+*/
