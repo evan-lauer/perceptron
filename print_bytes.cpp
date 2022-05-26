@@ -1,6 +1,6 @@
 /**
  * @file print_bytes.cpp
- * @author your name (you@domain.com)
+ * @author Evan Lauer
  * @brief 
  * @version 0.1
  * @date 2022-05-12
@@ -24,6 +24,7 @@
 #include <fstream>
 #include <vector>
 #include <Eigen/Dense>
+#include "print_bytes.h"
 
 using namespace Eigen;
 using namespace std;
@@ -85,8 +86,9 @@ void print_img_vector(ImageVector* img)
         for (int j = 0; j < 28; ++j)
         {
             Scalar ch = (*img)(i*28 + j);
-            if (ch < 10) { cout << "00"; }
-            else if (ch < 100) { cout << "0"; }
+            if (ch < 10) { cout << "00"; }      // formatting
+            else if (ch < 100) { cout << "0"; } // 
+            
             cout << +ch; // + is added to visualize the actual numerical char
         }
         cout << "\n";
